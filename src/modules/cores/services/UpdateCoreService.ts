@@ -1,5 +1,5 @@
 import AppError from "@shared/errors/AppError";
-import { getCustomRepository } from "typeorm";
+import { getCustomRepository, Index } from "typeorm";
 import Core from "../typeorm/entities/Core";
 import CoresRepository from "../typeorm/repositories/CoresRepository";
 
@@ -22,8 +22,8 @@ export default class UpdateCoreService{
             throw new AppError('Core not found.');
         }
         
-        
-        if(core && index != core.index){
+        const coreExists = await coresRepository.findByIndex(index);
+        if(coreExists && index != core.index){
             throw new AppError('There is already one core with this index.');
         }
 
