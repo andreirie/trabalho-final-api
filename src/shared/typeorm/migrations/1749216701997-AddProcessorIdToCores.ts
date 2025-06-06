@@ -1,8 +1,8 @@
 import {MigrationInterface, QueryRunner, TableColumn, TableForeignKey} from "typeorm";
 
-export class AddProcessorIdToCores1748750550957 implements MigrationInterface {
+export class AddProcessorIdToCores1749216701997 implements MigrationInterface {
 
- public async up(queryRunner: QueryRunner): Promise<void> {
+    public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.addColumn("cores", 
             new TableColumn({
                 name: "processor_id",
@@ -11,17 +11,17 @@ export class AddProcessorIdToCores1748750550957 implements MigrationInterface {
         }));
         await queryRunner.createForeignKey("cores", 
             new TableForeignKey({
-                name: "OrdersProcessor",
+                name: "CoresProcessors",
                 columnNames: ["processor_id"],
                 referencedTableName: "processors",
                 referencedColumnNames: ["id"],
-                onDelete: "SET NULL",
+                onDelete: "CASCADE",
             })
         );
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropForeignKey('cores', 'OrdersProcessor');
+        await queryRunner.dropForeignKey('cores', 'CoresProcessors');
         await queryRunner.dropColumn('cores', 'processor_id')
     }
 

@@ -1,12 +1,13 @@
 import { Router } from "express";
 import { celebrate, Joi, Segments } from "celebrate";
 import UsersController from "../controllers/UsersController";
-import isAuthenticadted from "@shared/http/middlewares/isAuthenticated";
+import isAuthenticated from "@shared/http/middlewares/isAuthenticated";
 
 const usersRouter = Router();
 const usersController = new UsersController();
+usersRouter.use(isAuthenticated);
 
-usersRouter.get('/', isAuthenticadted, async (req, res, next) => {
+usersRouter.get('/', async (req, res, next) => {
     try {
       await usersController.index(req, res, next);
     } catch (err) {

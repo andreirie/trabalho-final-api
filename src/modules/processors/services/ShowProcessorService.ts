@@ -11,7 +11,7 @@ export default class ShowProcessorService{
 
     public async execute({id}: IRequest) : Promise<Processor>{
         const processorsRepository = getCustomRepository(ProcessorsRepository);
-        const processor = await processorsRepository.findOne(id);
+        const processor = await processorsRepository.findById(id);
         if(!processor){
             throw new AppError('Processor not found.');
         }

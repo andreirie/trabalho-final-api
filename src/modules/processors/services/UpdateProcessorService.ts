@@ -2,7 +2,6 @@ import AppError from "@shared/errors/AppError";
 import { getCustomRepository } from "typeorm";
 import Processor from "../typeorm/entities/Processor";
 import ProcessorsRepository from "../typeorm/repositories/ProcessorsRepository";
-import { basename } from "path";
 
 interface IRequest{
     id: string;
@@ -17,11 +16,11 @@ export default class UpdateProcessorService{
 
     public async execute({id, model_name, manufacturer, architecture, total_cache, base_clock_speed}: IRequest) : Promise<Processor>{
         const processorsRepository = getCustomRepository(ProcessorsRepository);
-        const processor = await processorsRepository.findOne(id);
+        const processor = await processorsRepository.findById(id);
         if(!processor){
             throw new AppError('Processor not found.');
         }
-        //verificar se o novo nome do produto tbm já não exite e que não é o mesmo
+        
         const processorExists = await processorsRepository.findByModelName(model_name);
         if(processorExists && model_name != processor.model_name){
             throw new AppError('There is already one processor with this name.');

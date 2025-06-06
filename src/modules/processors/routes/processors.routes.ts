@@ -1,9 +1,11 @@
 import { Router } from 'express';
 import ProcessorsController from '../controllers/ProcessorsController';
 import { celebrate, Joi, Segments } from 'celebrate';
+import isAuthenticated from '@shared/http/middlewares/isAuthenticated';
 
 const processorsRouter = Router();
-const processorsController = new ProcessorsController(); 
+const processorsController = new ProcessorsController();
+processorsRouter.use(isAuthenticated); 
 
 processorsRouter.get('/', async (req, res, next) => {
   try {

@@ -5,7 +5,7 @@ import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGenerat
 export default class Core{
   @PrimaryGeneratedColumn('uuid')
   id: string;
-  @ManyToOne(() => Processor)
+  @ManyToOne(() => Processor, { onDelete: 'CASCADE' })
   @JoinColumn({name: "processor_id"})
   processor: Processor;
   @Column('int')
@@ -16,6 +16,8 @@ export default class Core{
   max_clock_speed: number;
   @Column('int')
   local_cache: number;
+  @Column('boolean')
+  multithreading: boolean;
   @CreateDateColumn()
   created_at: Date;
   @UpdateDateColumn()
