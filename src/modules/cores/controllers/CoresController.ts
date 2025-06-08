@@ -41,7 +41,7 @@ public async index(request: Request, response: Response, next: NextFunction): Pr
 
   public async update(request: Request, response: Response, next: NextFunction): Promise<Response | void> {
     try {
-      const { processor_id, index, type, max_clock_speed, local_cache, multithreading } = request.body;
+      const { index, type, max_clock_speed, local_cache, multithreading } = request.body;
       const { id } = request.params;
       const updateCore = new UpdateCoreService();
       const core = await updateCore.execute({id, index, type, max_clock_speed, local_cache, multithreading });
