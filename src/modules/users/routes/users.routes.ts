@@ -5,9 +5,8 @@ import isAuthenticated from "@shared/http/middlewares/isAuthenticated";
 
 const usersRouter = Router();
 const usersController = new UsersController();
-usersRouter.use(isAuthenticated);
 
-usersRouter.get('/', async (req, res, next) => {
+usersRouter.get('/', isAuthenticated, async (req, res, next) => {
     try {
       await usersController.index(req, res, next);
     } catch (err) {
